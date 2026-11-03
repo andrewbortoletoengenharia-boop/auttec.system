@@ -1,1 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia Visual de Redes para Automação v6</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .tab-active { border-bottom: 3px solid #06b6d4; color: #06b6d4; background-color: rgba(6, 182, 212, 0.1); }
+    .card-selected { border-color: #06b6d4; background-color: #1e293b; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
 
+  <!-- Header -->
+  <header class="bg-slate-950 border-b border-slate-800 p-4 md:p-6">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-3">
+        <div class="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/30">
+          <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+            Guia Visual de Redes para Automação
+            <span class="text-xs px-2.5 py-1 rounded-full bg-purple-600/30 text-purple-300 border border-purple-500/40 font-semibold tracking-wide">
+              Versão v6
+            </span>
+          </h1>
+          <p class="text-xs text-slate-400">Treinamento Prático para Técnicos e Eletricistas (Indústria 4.0)</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-500/30">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        SISTEMA ONLINE
+      </div>
+    </div>
+  </header>
+
+  <!-- Navegação por Abas -->
+  <main class="max-w-6xl mx-auto w-full p-4 md:p-6 flex-grow">
+    <nav class="flex border-b border-slate-800 mb-6 bg-slate-950/50 rounded-t-xl overflow-hidden">
+      <button id="btn-tab-cabos" onclick="switchTab('cabos')" class="tab-active flex-1 py-3.5 px-4 text-center font-medium transition-all text-sm md:text-base flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
+        <span>🔌</span> Meios Físicos (Cabos)
+      </button>
+      <button id="btn-tab-topologia" onclick="switchTab('topologia')" class="flex-1 py-3.5 px-4 text-center font-medium transition-all text-sm md:text-base flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
+        <span>📐</span> Simulador de Topologia
+      </button>
+    </nav>
+
+    <!-- ABA 1: MEIOS FÍSICOS -->
+    <section id="tab-cabos" class="space-y-6">
+      <!-- 3 Cards Limpos -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+        <button onclick="selectCable('par-trancado')" id="card-par-trancado" class="cable-card bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/60 p-6 rounded-xl transition-all flex flex-col items-center justify-center gap-3 shadow-lg group">
+          <span class="text-4xl group-hover:scale-110 transition-transform">🪢</span>
+          <span class="font-semibold text-lg text-slate-100">Par Trançado</span>
+        </button>
+
+        <button onclick="selectCable('fibra')" id="card-fibra" class="cable-card bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/60 p-6 rounded-xl transition-all flex flex-col items-center justify-center gap-3 shadow-lg group">
+          <span class="text-4xl group-hover:scale-110 transition-transform">⚡</span>
+          <span class="font-semibold text-lg text-slate-100">Fibra Óptica</span>
+        </button>
+
+        <button onclick="selectCable('rs485')" id="card-rs485" class="cable-card bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/60 p-6 rounded-xl transition-all flex flex-col items-center justify-center gap-3 shadow-lg group">
+          <span class="text-4xl group-hover:scale-110 transition-transform">🔌</span>
+          <span class="font-semibold text-lg text-slate-100">Cabo RS-485</span>
+        </button>
+      </div>
+
+      <!-- Painel de Detalhes Inferior Dinâmico -->
+      <div id="detail-panel" class="hidden bg-slate-800/90 border-2 border-cyan-500 rounded-xl p-6 shadow-2xl relative transition-all">
+        <button onclick="closeDetailPanel()" class="absolute top-4 right-4 bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors font-bold">
+          ✕
+        </button>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          <!-- Coluna Esquerda: Imagem -->
+          <div class="overflow-hidden rounded-lg border border-slate-700 bg-slate-900 aspect-video flex items-center justify-center">
+            <img id="detail-img" src="" alt="Cabo Técnico" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/06b6d4?text=Imagem+Indisponivel';">
+          </div>
+
+          <!-- Coluna Direita: Dados -->
+          <div class="space-y-4">
+            <h2 id="detail-title" class="text-2xl font-bold text-cyan-400 flex items-center gap-2"></h2>
+            <p id="detail-text" class="text-slate-300 text-sm leading-relaxed"></p>
+            
+            <div class="pt-2">
+              <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Especificações Técnicas</h3>
+              <div id="detail-badges" class="flex flex-wrap gap-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABA 2: SIMULADOR DE TOPOLOGIA -->
+    <section id="tab-topologia" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <button onclick="selectTopology('bus')" id="btn-top-bus" class="flex-1 py-4 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-cyan-500 text-cyan-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md">
+          <span>🚌</span> Layout em Barramento
+        </button>
+        <button onclick="selectTopology('star')" id="btn-top-star" class="flex-1 py-4 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-300 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md">
+          <span>⭐</span> Layout em Estrela
+        </button>
+      </div>
+
+      <!-- Diagrama e Explicação da Topologia -->
+      <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-6 shadow-xl space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-700 pb-4">
+          <h2 id="topo-title" class="text-xl font-bold text-cyan-400">Layout em Barramento (Bus)</h2>
+          <span id="topo-tag" class="text-xs px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700 font-mono">Padrão RS-485 / Profibus DP</span>
+        </div>
+
+        <!-- Diagrama Visual HTML/CSS -->
+        <div id="topo-diagram" class="bg-slate-900 border border-slate-800 rounded-lg p-6 min-h-[220px] flex items-center justify-center overflow-x-auto">
+          <!-- O diagrama é injetado via JS -->
+        </div>
+
+        <!-- Prós e Contras -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+          <div class="bg-emerald-950/30 border border-emerald-500/30 rounded-lg p-4">
+            <h3 class="text-emerald-400 font-semibold mb-2 flex items-center gap-2 text-sm">
+              <span>✅</span> Vantagens
+            </h3>
+            <ul id="topo-advantages" class="text-slate-300 text-xs md:text-sm space-y-1 list-disc list-inside"></ul>
+          </div>
+          <div class="bg-rose-950/30 border border-rose-500/30 rounded-lg p-4">
+            <h3 class="text-rose-400 font-semibold mb-2 flex items-center gap-2 text-sm">
+              <span>❌</span> Desvantagens
+            </h3>
+            <ul id="topo-disadvantages" class="text-slate-300 text-xs md:text-sm space-y-1 list-disc list-inside"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-800 p-4 text-center text-xs text-slate-500">
+    Guia Visual de Redes para Automação Industrial • Padrão Indústria 4.0
+  </footer>
+
+  <script>
+    // Dados dos Cabos
+    const cablesData = {
+      'par-trancado': {
+        title: 'Par Trançado',
+        image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&h=400&q=80',
+        text: 'Cabo de rede comum (Ethernet/Profinet). Usado para ligar o CLP ao computador do supervisor, além de conectar switches e IHMs.',
+        badges: ['Custo: Baixo', 'Flexibilidade: Alta', 'Distância: Máx. 100m']
+      },
+      'fibra': {
+        title: 'Fibra Óptica',
+        image: 'https://images.unsplash.com/photo-1601524909162-be87252be298?auto=format&fit=crop&w=600&h=400&q=80',
+        text: 'Cabo de filamentos de vidro. Usado para levar dados a longas distâncias na fábrica e interligar blocos industriais sem sofrer nenhuma interferência eletromagnética de grandes motores.',
+        badges: ['Imunidade a Ruídos: Excelente', 'Custo: Alto', 'Banda: Gigabit+']
+      },
+      'rs485': {
+        title: 'Cabo RS-485',
+        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&h=400&q=80',
+        text: 'Cabo de dois fios trançados com blindagem malhada (A e B). Padrão físico indispensável na indústria para comunicação serial robusta entre CLPs, inversores de frequência e instrumentos de campo.',
+        badges: ['Protocolos: Modbus RTU / Profibus DP', 'Distância: até 1200m', 'Topologia: Barramento']
+      }
+    };
+
+    // Dados das Topologias
+    const topologyData = {
+      bus: {
+        title: 'Layout em Barramento (Bus)',
+        tag: 'Padrão RS-485 / Modbus RTU / Profibus',
+        advantages: [
+          'Economia de cabeamento e facilidade de instalação em linha.',
+          'Excelente para longas distâncias no chão de fábrica (até 1200m).',
+          'Arquitetura simples para expansão de novos nós.'
+        ],
+        disadvantages: [
+          'Se o cabo principal se romper, toda a rede a jusante cai.',
+          'Diagnóstico de falhas mais complexo sem gerenciamento avançado.',
+          'Exige resistores de terminação nas pontas.'
+        ],
+        diagramHtml: `
+          <div class="flex flex-col items-center w-full max-w-xl py-4">
+            <!-- Dispositivos em linha -->
+            <div class="flex justify-between w-full mb-2 px-4 gap-2">
+              <div class="bg-slate-800 border-2 border-emerald-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
+                <div class="text-emerald-400 font-bold">CLP Master</div>
+                <div class="text-[10px] text-slate-400">Node 01</div>
+              </div>
+              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
+                <div class="text-cyan-400 font-bold">Inversor</div>
+                <div class="text-[10px] text-slate-400">Node 02</div>
+              </div>
+              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
+                <div class="text-cyan-400 font-bold">IHM</div>
+                <div class="text-[10px] text-slate-400">Node 03</div>
+              </div>
+              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
+                <div class="text-cyan-400 font-bold">Módulo IO</div>
+                <div class="text-[10px] text-slate-400">Node 04</div>
+              </div>
+            </div>
+            <!-- Linhas verticais de conexão -->
+            <div class="flex justify-between w-full px-12 h-6">
+              <div class="w-0.5 h-full bg-cyan-400"></div>
+              <div class="w-0.5 h-full bg-cyan-400"></div>
+              <div class="w-0.5 h-full bg-cyan-400"></div>
+              <div class="w-0.5 h-full bg-cyan-400"></div>
+            </div>
+            <!-- Cabo Tronco Principal -->
+            <div class="w-full h-3 bg-cyan-500 rounded-full relative flex items-center justify-between px-2 shadow-inner">
+              <span class="w-2 h-2 rounded-full bg-purple-400" title="Terminação A"></span>
+              <span class="text-[10px] font-mono text-slate-900 font-bold uppercase tracking-wider">Cabo Tronco RS-485 (Linha Principal)</span>
+              <span class="w-2 h-2 rounded-full bg-purple-400" title="Terminação B"></span>
+            </div>
+          </div>
+        `
+      },
+      star: {
+        title: 'Layout em Estrela (Star)',
+        tag: 'Padrão Ethernet Industrial / Profinet',
+        advantages: [
+          'Isolamento de falhas: se um cabo romper, apenas uma máquina cai.',
+          'Alta velocidade de transmissão (100Mbps a 1Gbps+).',
+          'Fácil manutenção e monitoramento centralizado via Switch.'
+        ],
+        disadvantages: [
+          'Maior consumo de cabos direcionados ao ponto central.',
+          'Dependência do Switch Central (se ele falhar, a rede para).',
+          'Custo de infraestrutura ligeiramente superior.'
+        ],
+        diagramHtml: `
+          <div class="flex flex-col items-center w-full max-w-md py-2">
+            <!-- Dispositivo Topo -->
+            <div class="bg-slate-800 border-2 border-emerald-500 rounded p-2 text-center text-xs font-mono w-28 mb-4 shadow">
+              <div class="text-emerald-400 font-bold">CLP Central</div>
+            </div>
+            <!-- Conectores Superiores -->
+            <div class="w-0.5 h-6 bg-emerald-400"></div>
+            <!-- Switch Central -->
+            <div class="bg-purple-950 border-2 border-purple-500 rounded-lg p-3 text-center text-xs font-mono w-40 shadow-lg my-1">
+              <div class="text-purple-300 font-bold">Switch Industrial</div>
+              <div class="text-[9px] text-purple-400">Gerenciável (10/100)</div>
+            </div>
+            <!-- Linhas de Distribuição -->
+            <div class="flex justify-between w-full px-8 h-6">
+              <div class="w-0.5 h-full bg-cyan-400 rotate-12 origin-top"></div>
+              <div class="w-0.5 h-full bg-cyan-400"></div>
+              <div class="w-0.5 h-full bg-cyan-400 -rotate-12 origin-top"></div>
+            </div>
+            <!-- Dispositivos Periféricos -->
+            <div class="flex justify-between w-full gap-2">
+              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-2 text-center text-xs font-mono w-24 shadow">
+                <div class="text-cyan-400 font-bold">IHM</div>
+              </div>
+              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-2 text-center text-xs font-mono w-24 shadow">
+                <div class="text-cyan-400 font-bold">Inversor</div>
+              </div>
+              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-2 text-center text-xs font-mono w-24 shadow">
+                <div class="text-cyan-400 font-bold">Robô</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
+    };
+
+    // Alternar Abas
+    function switchTab(tab) {
+      const btnCabos = document.getElementById('btn-tab-cabos');
+      const btnTopologia = document.getElementById('btn-tab-topologia');
+      const tabCabos = document.getElementById('tab-cabos');
+      const tabTopologia = document.getElementById('tab-topologia');
+
+      if (tab === 'cabos') {
+        btnCabos.classList.add('tab-active');
+        btnTopologia.classList.remove('tab-active');
+        tabCabos.classList.remove('hidden');
+        tabTopologia.classList.add('hidden');
+      } else {
+        btnTopologia.classList.add('tab-active');
+        btnCabos.classList.remove('tab-active');
+        tabTopologia.classList.remove('hidden');
+        tabCabos.classList.add('hidden');
+        selectTopology('bus');
+      }
+    }
+
+    // Seleção de Cabo na Aba 1
+    function selectCable(cableKey) {
+      const data = cablesData[cableKey];
+      if (!data) return;
+
+      document.querySelectorAll('.cable-card').forEach(card => {
+        card.classList.remove('card-selected');
+      });
+      document.getElementById(`card-${cableKey}`).classList.add('card-selected');
+
+      document.getElementById('detail-title').innerText = data.title;
+      document.getElementById('detail-img').src = data.image;
+      document.getElementById('detail-text').innerText = data.text;
+
+      const badgesContainer = document.getElementById('detail-badges');
+      badgesContainer.innerHTML = '';
+      data.badges.forEach(badge => {
+        const span = document.createElement('span');
+        span.className = 'px-3 py-1 rounded-md bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-medium';
+        span.innerText = badge;
+        badgesContainer.appendChild(span);
+      });
+
+      document.getElementById('detail-panel').classList.remove('hidden');
+    }
+
+    // Fechar Painel de Detalhes
+    function closeDetailPanel() {
+      document.getElementById('detail-panel').classList.add('hidden');
+      document.querySelectorAll('.cable-card').forEach(card => {
+        card.classList.remove('card-selected');
+      });
+    }
+
+    // Seleção de Topologia na Aba 2
+    function selectTopology(type) {
+      const data = topologyData[type];
+      if (!data) return;
+
+      const btnBus = document.getElementById('btn-top-bus');
+      const btnStar = document.getElementById('btn-top-star');
+
+      if (type === 'bus') {
+        btnBus.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800 border-2 border-cyan-500 text-cyan-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
+        btnStar.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800/50 border-2 border-slate-700 text-slate-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
+      } else {
+        btnStar.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800 border-2 border-cyan-500 text-cyan-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
+        btnBus.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800/50 border-2 border-slate-700 text-slate-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
+      }
+
+      document.getElementById('topo-title').innerText = data.title;
+      document.getElementById('topo-tag').innerText = data.tag;
+      document.getElementById('topo-diagram').innerHTML = data.diagramHtml;
+
+      const advList = document.getElementById('topo-advantages');
+      advList.innerHTML = '';
+      data.advantages.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        advList.appendChild(li);
+      });
+
+      const disList = document.getElementById('topo-disadvantages');
+      disList.innerHTML = '';
+      data.disadvantages.forEach(item => {
+        const li = document.createElement('li');
+        li.innerText = item;
+        disList.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
