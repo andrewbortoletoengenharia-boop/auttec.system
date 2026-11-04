@@ -1,364 +1,817 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia Visual de Redes para Automação v6</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .tab-active { border-bottom: 3px solid #06b6d4; color: #06b6d4; background-color: rgba(6, 182, 212, 0.1); }
-    .card-selected { border-color: #06b6d4; background-color: #1e293b; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTTEC SYSTEM | Engenharia e Automação Industrial - Representante Altus</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts (Montserrat Explicit Import) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0B0F19',
+                            card: '#111827',
+                            border: '#1E293B',
+                            blue: '#0066FF',
+                            cyan: '#00F0FF',
+                            green: '#00E676',
+                            altus: '#004B93'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        tech: ['Montserrat', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Montserrat', sans-serif !important;
+        }
+
+        body {
+            background-color: #0B0F19;
+            color: #E2E8F0;
+            font-family: 'Montserrat', sans-serif !important;
+            overflow-x: hidden;
+        }
+        
+        .glow-cyan {
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.25);
+        }
+        
+        .glow-blue {
+            box-shadow: 0 0 25px rgba(0, 102, 255, 0.3);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #00f0ff 0%, #0066ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gradient-altus {
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .grid-pattern {
+            background-image: radial-gradient(rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .tech-border {
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-border:hover {
+            border-color: rgba(0, 240, 255, 0.6);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+        }
+        
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .animate-status {
+            animation: pulse-fast 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+<body class="grid-pattern flex flex-col min-h-screen font-sans">
 
-  <!-- Header -->
-  <header class="bg-slate-950 border-b border-slate-800 p-4 md:p-6">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-      <div class="flex items-center gap-3">
-        <div class="p-2 bg-cyan-500/10 rounded-lg border border-cyan-500/30">
-          <svg class="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-          </svg>
+    <!-- HEADER / NAVBAR -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-brand-dark/90 border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-brand-blue to-brand-cyan flex items-center justify-center text-brand-dark text-xl font-bold font-sans shadow-lg group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-sans text-xl font-black tracking-wider text-white">AUTTEC<span class="text-brand-cyan">.</span>SYSTEM</span>
+                        <span class="text-[10px] text-gray-400 font-semibold tracking-widest uppercase">Industrial Automation</span>
+                    </div>
+                </a>
+
+                <!-- Nav Desktop -->
+                <nav class="hidden md:flex space-x-6 text-sm font-semibold">
+                    <a href="#inicio" class="text-gray-300 hover:text-brand-cyan transition-colors">Início</a>
+                    <a href="#altus" class="text-gray-300 hover:text-brand-cyan transition-colors flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-blue-500"></span> Altus
+                    </a>
+                    <a href="#servicos" class="text-gray-300 hover:text-brand-cyan transition-colors">Serviços</a>
+                    <a href="#simulador" class="text-gray-300 hover:text-brand-cyan transition-colors">Simulador</a>
+                    <a href="#cases" class="text-gray-300 hover:text-brand-cyan transition-colors">Cases</a>
+                    <a href="#sobre" class="text-gray-300 hover:text-brand-cyan transition-colors">Sobre Nós</a>
+                </nav>
+
+                <!-- CTA Button Desktop -->
+                <div class="hidden md:flex items-center gap-4">
+                    <a href="#contato" class="px-5 py-2.5 rounded-lg bg-gradient-to-r from-brand-blue to-brand-cyan text-brand-dark font-extrabold text-sm hover:brightness-110 transition-all shadow-md flex items-center gap-2">
+                        <i class="fa-solid fa-headset"></i> Falar com Engenheiro
+                    </a>
+                </div>
+
+                <!-- Botão Menu Mobile -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" class="text-gray-400 hover:text-white focus:outline-none text-2xl p-2" aria-label="Abrir menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-        <div>
-          <h1 class="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center gap-2">
-            Guia Visual de Redes para Automação
-            <span class="text-xs px-2.5 py-1 rounded-full bg-purple-600/30 text-purple-300 border border-purple-500/40 font-semibold tracking-wide">
-              Versão v6
-            </span>
-          </h1>
-          <p class="text-xs text-slate-400">Treinamento Prático para Técnicos e Eletricistas (Indústria 4.0)</p>
+
+        <!-- Mobile Menu Container -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-card border-b border-brand-border px-4 pt-2 pb-6 space-y-3">
+            <a href="#inicio" class="mobile-link block px-3 py-2 rounded-md text-base font-semibold text-gray-300 hover:bg-slate-800 hover:text-brand-cyan">Início</a>
+            <a href="#altus" class="mobile-link block px-3 py-2 rounded-md text-base font-semibold text-gray-300 hover:bg-slate-800 hover:text-brand-cyan">Parceria Altus</a>
+            <a href="#servicos" class="mobile-link block px-3 py-2 rounded-md text-base font-semibold text-gray-300 hover:bg-slate-800 hover:text-brand-cyan">Serviços de Engenharia</a>
+            <a href="#simulador" class="mobile-link block px-3 py-2 rounded-md text-base font-semibold text-gray-300 hover:bg-slate-800 hover:text-brand-cyan">Simulador de Projeto</a>
+            <a href="#cases" class="mobile-link block px-3 py-2 rounded-md text-base font-semibold text-gray-300 hover:bg-slate-800 hover:text-brand-cyan">Cases de Sucesso</a>
+            <a href="#sobre" class="mobile-link block px-3 py-2 rounded-md text-base font-semibold text-gray-300 hover:bg-slate-800 hover:text-brand-cyan">Sobre o CEO & Empresa</a>
+            <a href="#contato" class="mobile-link block w-full text-center px-4 py-3 rounded-md bg-gradient-to-r from-brand-blue to-brand-cyan text-brand-dark font-extrabold">Solicitar Orçamento</a>
         </div>
-      </div>
-      <div class="flex items-center gap-2 text-xs font-mono text-emerald-400 bg-emerald-950/40 px-3 py-1.5 rounded-full border border-emerald-500/30">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        SISTEMA ONLINE
-      </div>
-    </div>
-  </header>
+    </header>
 
-  <!-- Navegação por Abas -->
-  <main class="max-w-6xl mx-auto w-full p-4 md:p-6 flex-grow">
-    <nav class="flex border-b border-slate-800 mb-6 bg-slate-950/50 rounded-t-xl overflow-hidden">
-      <button id="btn-tab-cabos" onclick="switchTab('cabos')" class="tab-active flex-1 py-3.5 px-4 text-center font-medium transition-all text-sm md:text-base flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
-        <span>🔌</span> Meios Físicos (Cabos)
-      </button>
-      <button id="btn-tab-topologia" onclick="switchTab('topologia')" class="flex-1 py-3.5 px-4 text-center font-medium transition-all text-sm md:text-base flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
-        <span>📐</span> Simulador de Topologia
-      </button>
-    </nav>
+    <main class="flex-grow">
+        <!-- HERO SECTION -->
+        <section id="inicio" class="relative py-16 md:py-24 overflow-hidden border-b border-brand-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Hero Content -->
+                    <div class="lg:col-span-7 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-brand-cyan/40 text-brand-cyan text-xs font-semibold mb-6">
+                            <span class="w-2 h-2 rounded-full bg-brand-cyan animate-status"></span>
+                            <span>INDÚSTRIA 4.0 & SOLUÇÕES EM AUTOMATIZAÇÃO</span>
+                        </div>
+                        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-sans">
+                            Transformando Linhas de Produção em <span class="text-gradient">Células Inteligentes</span>
+                        </h1>
+                        <p class="mt-6 text-base sm:text-lg text-gray-400 max-w-2xl font-sans font-normal">
+                            Projetos de engenharia sob medida, integração de CLPs de altíssima performance, células de montagem automatizadas com Poka-Yoke, adequação NR-12 e conectividade IIoT para impulsionar a produtividade industrial.
+                        </p>
+                        
+                        <!-- CTA Buttons -->
+                        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <a href="#simulador" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-blue to-brand-cyan text-brand-dark font-extrabold hover:shadow-lg hover:shadow-brand-cyan/20 hover:scale-105 transition-all text-center">
+                                <i class="fa-solid fa-calculator mr-2"></i> Simular Meu Projeto
+                            </a>
+                            <a href="#altus" class="px-8 py-4 rounded-xl bg-slate-900 text-white font-bold border border-brand-border hover:border-brand-blue transition-all text-center flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-microchip text-sky-400"></i> Linha Altus Nexto
+                            </a>
+                        </div>
 
-    <!-- ABA 1: MEIOS FÍSICOS -->
-    <section id="tab-cabos" class="space-y-6">
-      <!-- 3 Cards Limpos -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-        <button onclick="selectCable('par-trancado')" id="card-par-trancado" class="cable-card bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/60 p-6 rounded-xl transition-all flex flex-col items-center justify-center gap-3 shadow-lg group">
-          <span class="text-4xl group-hover:scale-110 transition-transform">🪢</span>
-          <span class="font-semibold text-lg text-slate-100">Par Trançado</span>
-        </button>
+                        <!-- Stats Banner -->
+                        <div class="mt-12 grid grid-cols-3 gap-4 border-t border-brand-border/60 pt-8">
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-white font-sans">+150</p>
+                                <p class="text-xs sm:text-sm text-gray-400 font-medium">Projetos Entregues</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-brand-cyan font-sans">99.8%</p>
+                                <p class="text-xs sm:text-sm text-gray-400 font-medium">Uptime em Operações</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-blue-500 font-sans">100%</p>
+                                <p class="text-xs sm:text-sm text-gray-400 font-medium">Normas NR-12 / IEC</p>
+                            </div>
+                        </div>
+                    </div>
 
-        <button onclick="selectCable('fibra')" id="card-fibra" class="cable-card bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/60 p-6 rounded-xl transition-all flex flex-col items-center justify-center gap-3 shadow-lg group">
-          <span class="text-4xl group-hover:scale-110 transition-transform">⚡</span>
-          <span class="font-semibold text-lg text-slate-100">Fibra Óptica</span>
-        </button>
+                    <!-- Visual Interactive Graphic -->
+                    <div class="lg:col-span-5">
+                        <div class="relative bg-brand-card p-6 sm:p-8 rounded-2xl border border-brand-border glow-blue">
+                            <div class="flex items-center justify-between pb-4 border-b border-brand-border mb-6">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                                    <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                                    <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-400">PLANT MONITORING SYSTEM v4.2</span>
+                            </div>
 
-        <button onclick="selectCable('rs485')" id="card-rs485" class="cable-card bg-slate-800/80 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/60 p-6 rounded-xl transition-all flex flex-col items-center justify-center gap-3 shadow-lg group">
-          <span class="text-4xl group-hover:scale-110 transition-transform">🔌</span>
-          <span class="font-semibold text-lg text-slate-100">Cabo RS-485</span>
-        </button>
-      </div>
+                            <div class="space-y-4 font-sans text-xs">
+                                <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+                                    <div class="flex justify-between text-gray-400 mb-1 font-semibold">
+                                        <span>PLC ALTUS NEXTO (CPU NX3030)</span>
+                                        <span class="text-green-400 font-bold">ONLINE</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 rounded-full h-2">
+                                        <div class="bg-brand-cyan h-2 rounded-full w-4/5"></div>
+                                    </div>
+                                </div>
 
-      <!-- Painel de Detalhes Inferior Dinâmico -->
-      <div id="detail-panel" class="hidden bg-slate-800/90 border-2 border-cyan-500 rounded-xl p-6 shadow-2xl relative transition-all">
-        <button onclick="closeDetailPanel()" class="absolute top-4 right-4 bg-slate-700 hover:bg-slate-600 text-slate-300 hover:text-white w-8 h-8 rounded-full flex items-center justify-center transition-colors font-bold">
-          ✕
-        </button>
+                                <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+                                    <div class="flex justify-between text-gray-400 mb-1 font-semibold">
+                                        <span>LINHA 01 CICLO (Poka-Yoke)</span>
+                                        <span class="text-brand-cyan font-bold">1.2s / peça</span>
+                                    </div>
+                                    <div class="w-full bg-slate-800 rounded-full h-2">
+                                        <div class="bg-brand-blue h-2 rounded-full w-11/12"></div>
+                                    </div>
+                                </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          <!-- Coluna Esquerda: Imagem -->
-          <div class="overflow-hidden rounded-lg border border-slate-700 bg-slate-900 aspect-video flex items-center justify-center">
-            <img id="detail-img" src="" alt="Cabo Técnico" class="w-full h-full object-cover transition-opacity duration-300" onerror="this.onerror=null; this.src='https://placehold.co/600x400/1e293b/06b6d4?text=Imagem+Indisponivel';">
-          </div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
+                                        <span class="block text-gray-400 text-[10px] font-semibold">PROTOCOLO IIoT</span>
+                                        <span class="text-sm font-bold text-emerald-400">OPC UA / MQTT</span>
+                                    </div>
+                                    <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
+                                        <span class="block text-gray-400 text-[10px] font-semibold">SEGURANÇA NR-12</span>
+                                        <span class="text-sm font-bold text-amber-400">CATEGORIA 4</span>
+                                    </div>
+                                </div>
+                            </div>
 
-          <!-- Coluna Direita: Dados -->
-          <div class="space-y-4">
-            <h2 id="detail-title" class="text-2xl font-bold text-cyan-400 flex items-center gap-2"></h2>
-            <p id="detail-text" class="text-slate-300 text-sm leading-relaxed"></p>
+                            <div class="mt-6 pt-4 border-t border-brand-border/60 flex items-center justify-between text-xs text-gray-400">
+                                <span class="flex items-center gap-2">
+                                    <i class="fa-solid fa-server text-brand-cyan"></i> Integração Scada / MES
+                                </span>
+                                <span class="text-brand-cyan font-semibold">AUTTEC ACTIVE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO ALTUS PARCEIRA -->
+        <section id="altus" class="py-16 bg-slate-950/60 border-b border-brand-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-gradient-to-r from-blue-950/40 via-brand-card to-slate-900 border border-brand-blue/30 rounded-3xl p-8 md:p-12">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-8">
+                            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-blue-900/50 text-sky-300 text-xs font-semibold mb-4 border border-blue-700/40">
+                                <i class="fa-solid fa-award"></i> REPRESENTANTE & INTEGRADOR OFICIAL
+                            </div>
+                            <h2 class="text-2xl sm:text-4xl font-extrabold text-white font-tech mb-4">
+                                Parceria Estratégica <span class="text-gradient-altus">ALTUS Sistemas de Automação</span>
+                            </h2>
+                            <p class="text-gray-300 text-base leading-relaxed mb-6">
+                                A AUTTEC SYSTEM é integradora credenciada e parceira comercial da Altus, fabricante líder em tecnologia de automação no Brasil. Dominamos o ecossistema completo de programação em **MasterTool IEC XE** e fornecemos hardware topo de linha para alta estabilidade operacional.
+                            </p>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                    <i class="fa-solid fa-box text-sky-400 text-xl mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">Linha Nexto & Nexto Xpress</h4>
+                                        <p class="text-xs text-gray-400 mt-1">CLPs compactos e expansíveis com portas Ethernet, WebServer e IoT nativo.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+                                    <i class="fa-solid fa-network-wired text-sky-400 text-xl mt-1"></i>
+                                    <div>
+                                        <h4 class="font-bold text-white text-sm">Protocolos Abertos</h4>
+                                        <p class="text-xs text-gray-400 mt-1">Suporte completo a EtherNet/IP, PROFINET, Modbus RTU/TCP e OPC UA.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-4 flex flex-col items-center justify-center border-t lg:border-t-0 lg:border-l border-brand-border pt-6 lg:pt-0 lg:pl-8">
+                            <div class="w-32 h-32 rounded-full bg-slate-900 border-2 border-sky-500/50 flex flex-col items-center justify-center text-center shadow-lg p-4 mb-4">
+                                <i class="fa-solid fa-microchip text-4xl text-sky-400 mb-1"></i>
+                                <span class="font-sans text-xs font-extrabold tracking-wider text-white">ALTUS</span>
+                                <span class="text-[9px] text-gray-400 font-semibold">CERTIFIED</span>
+                            </div>
+                            <p class="text-xs text-center text-gray-400 italic">"Garantia de suprimento de peças, suporte técnico ágil e projetos homologados."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE SERVIÇOS -->
+        <section id="servicos" class="py-20 border-b border-brand-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-semibold text-brand-cyan tracking-widest uppercase mb-2">Especialidades Industriais</h2>
+                    <h3 class="text-3xl sm:text-4xl font-extrabold text-white font-sans">Soluções Completas de Engenharia</h3>
+                    <p class="mt-4 text-gray-400 text-sm sm:text-base">Projetamos, montamos e comissionamos sua linha automatizada com padrões internacionais de qualidade.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Serviço 1 -->
+                    <div class="bg-brand-card p-8 rounded-2xl tech-border flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-brand-blue flex items-center justify-center text-brand-cyan text-2xl mb-6">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white font-sans mb-3">Programação de CLP & IHM</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Desenvolvimento em linguagens norma IEC 61131-3 (Ladder, ST, FBD). Telas intuitivas de IHM para controle e parametrização em tempo real.
+                            </p>
+                        </div>
+                        <ul class="text-xs text-gray-400 space-y-2 pt-4 border-t border-slate-800 font-medium">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Altus MasterTool / Rockwell / Siemens</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Telas Touchscreen SCADA/IHM</li>
+                        </ul>
+                    </div>
+
+                    <!-- Serviço 2 -->
+                    <div class="bg-brand-card p-8 rounded-2xl tech-border flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-brand-blue flex items-center justify-center text-brand-cyan text-2xl mb-6">
+                                <i class="fa-solid fa-industry"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white font-tech mb-3">Dispositivos para Linhas de Montagem</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Projeto mecânico e eletroeletrônico de bancadas automatizadas, garras pneumáticas, sensores de presença e validação por Poka-Yoke.
+                            </p>
+                        </div>
+                        <ul class="text-xs text-gray-400 space-y-2 pt-4 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Controle anti-erro (Zero Defeito)</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Atuadores Pneumáticos e Servomotores</li>
+                        </ul>
+                    </div>
+
+                    <!-- Serviço 3 -->
+                    <div class="bg-brand-card p-8 rounded-2xl tech-border flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-brand-blue flex items-center justify-center text-brand-cyan text-2xl mb-6">
+                                <i class="fa-solid fa-wifi"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white font-tech mb-3">Adequação Indústria 4.0</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Retrofit de máquinas antigas para envio de métricas (OEE, paradas, contagem) via MQTT e Node-RED para servidores em nuvem ou bancos SQL.
+                            </p>
+                        </div>
+                        <ul class="text-xs text-gray-400 space-y-2 pt-4 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Sensores IIoT sem fio</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Dashboards de Produtividade</li>
+                        </ul>
+                    </div>
+
+                    <!-- Serviço 4 -->
+                    <div class="bg-brand-card p-8 rounded-2xl tech-border flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-brand-blue flex items-center justify-center text-amber-400 text-2xl mb-6">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white font-tech mb-3">Adequação NR-12 & Segurança</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Instalação de cortinas de luz, relés de segurança, paradas de emergência duplas, validação Categoria 4 e emissão de ART de engenharia.
+                            </p>
+                        </div>
+                        <ul class="text-xs text-gray-400 space-y-2 pt-4 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Apreciação de Riscos</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Painéis de Segurança Homologados</li>
+                        </ul>
+                    </div>
+
+                    <!-- Serviço 5 -->
+                    <div class="bg-brand-card p-8 rounded-2xl tech-border flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-brand-blue flex items-center justify-center text-brand-cyan text-2xl mb-6">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white font-tech mb-3">Células Robotizadas</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Integração de robôs articulados e cobots (robôs colaborativos) para movimentação, paletização, solda e manipulação de carga.
+                            </p>
+                        </div>
+                        <ul class="text-xs text-gray-400 space-y-2 pt-4 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Pick-and-place ultra rápido</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Simulação virtual de trajetória</li>
+                        </ul>
+                    </div>
+
+                    <!-- Serviço 6 -->
+                    <div class="bg-brand-card p-8 rounded-2xl tech-border flex flex-col justify-between">
+                        <div>
+                            <div class="w-14 h-14 rounded-xl bg-blue-950/80 border border-brand-blue flex items-center justify-center text-brand-cyan text-2xl mb-6">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-white font-tech mb-3">Montagem de Painéis Elétricos</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                                Engenharia e montagem de quadros de comando elétrico com identificação anilhada, esquemas elétricos em EPLAN/AutoCAD Electrical.
+                            </p>
+                        </div>
+                        <ul class="text-xs text-gray-400 space-y-2 pt-4 border-t border-slate-800">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Padrão NBR IEC 61439</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-cyan"></i> Componentes de Alta Confiabilidade</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIMULADOR INTERATIVO (JS PURO) -->
+        <section id="simulador" class="py-20 bg-slate-950 border-b border-brand-border">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="text-xs font-mono text-brand-cyan uppercase tracking-widest">Ferramenta Interativa</span>
+                    <h3 class="text-3xl font-extrabold text-white font-tech mt-2">Simulador de Arquitetura de Automação</h3>
+                    <p class="text-gray-400 text-sm mt-2">Configure o perfil da sua necessidade e receba uma recomendação técnica preliminar.</p>
+                </div>
+
+                <div class="bg-brand-card p-6 sm:p-10 rounded-3xl border border-brand-border shadow-2xl">
+                    <form id="calc-form" onsubmit="event.preventDefault(); calcularArquitetura();" class="space-y-6">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Opção 1: Porte -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-300 mb-2">1. Porte da Linha / Aplicação</label>
+                                <select id="porte" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none">
+                                    <option value="pequeno">Compacto (Até 32 Pontos I/O)</option>
+                                    <option value="medio">Médio Porte (32 a 256 Pontos I/O)</option>
+                                    <option value="grande">Grande Célula (Acima de 256 Pontos I/O / Distribuído)</option>
+                                </select>
+                            </div>
+
+                            <!-- Opção 2: Foco -->
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-300 mb-2">2. Principal Objetivo</label>
+                                <select id="objetivo" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none">
+                                    <option value="montagem">Controle de Montagem & Poka-Yoke</option>
+                                    <option value="iiot">Conectividade Indústria 4.0 & Telemetria</option>
+                                    <option value="nr12">Adequação de Segurança NR-12</option>
+                                    <option value="robotica">Célula Robotizada Integrada</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Opção 3: Protocolo Desejado -->
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-300 mb-2">3. Protocolo Principal de Comunicação</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <label class="flex items-center gap-2 bg-slate-900 p-3 rounded-lg border border-slate-800 cursor-pointer text-xs hover:border-brand-blue">
+                                    <input type="radio" name="protocolo" value="modbus" checked class="accent-brand-cyan"> Modbus TCP/RTU
+                                </label>
+                                <label class="flex items-center gap-2 bg-slate-900 p-3 rounded-lg border border-slate-800 cursor-pointer text-xs hover:border-brand-blue">
+                                    <input type="radio" name="protocolo" value="profinet" class="accent-brand-cyan"> PROFINET / CANopen
+                                </label>
+                                <label class="flex items-center gap-2 bg-slate-900 p-3 rounded-lg border border-slate-800 cursor-pointer text-xs hover:border-brand-blue">
+                                    <input type="radio" name="protocolo" value="ethernetip" class="accent-brand-cyan"> EtherNet/IP
+                                </label>
+                                <label class="flex items-center gap-2 bg-slate-900 p-3 rounded-lg border border-slate-800 cursor-pointer text-xs hover:border-brand-blue">
+                                    <input type="radio" name="protocolo" value="opcua" class="accent-brand-cyan"> OPC UA / MQTT (Cloud)
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-blue to-brand-cyan text-brand-dark font-extrabold text-sm uppercase tracking-wider hover:brightness-110 transition-all">
+                            Gerar Arquitetura Recomendada
+                        </button>
+                    </form>
+
+                    <!-- Resultado da Simulação -->
+                    <div id="resultado-simulacao" class="hidden mt-8 pt-8 border-t border-brand-border bg-slate-900/90 p-6 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            <i class="fa-solid fa-square-poll-vertical text-brand-cyan text-2xl"></i>
+                            <h4 class="text-lg font-bold text-white font-tech">Arquitetura Sugerida pela AUTTEC SYSTEM</h4>
+                        </div>
+                        <div class="space-y-3 text-sm text-gray-300">
+                            <p><strong>CLP Indicado:</strong> <span id="res-clp" class="text-brand-cyan font-semibold"></span></p>
+                            <p><strong>IHM / Supervisório:</strong> <span id="res-ihm" class="text-white"></span></p>
+                            <p><strong>Módulos de Expansão:</strong> <span id="res-io" class="text-white"></span></p>
+                            <p><strong>Recurso Chave de Segurança:</strong> <span id="res-seguranca" class="text-amber-400"></span></p>
+                        </div>
+                        <div class="mt-6 p-4 bg-blue-950/40 rounded-xl border border-blue-800/50 flex flex-col sm:flex-row items-center justify-between gap-4">
+                            <span class="text-xs text-gray-300">Deseja um orçamento formal detalhado baseado nesta simulação?</span>
+                            <a href="#contato" class="px-4 py-2 bg-brand-cyan text-brand-dark font-bold text-xs rounded-lg hover:bg-white transition-colors shrink-0">
+                                Solicitar Proposta Comercial
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASES DE SUCESSO -->
+        <section id="cases" class="py-20 border-b border-brand-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-xs font-mono text-brand-cyan tracking-widest uppercase mb-2">Histórico de Engenharia</h2>
+                    <h3 class="text-3xl font-extrabold text-white font-tech">Cases de Sucesso na Indústria</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Case 1 -->
+                    <div class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border flex flex-col">
+                        <div class="h-44 bg-gradient-to-tr from-slate-900 to-blue-950 p-6 flex flex-col justify-end relative">
+                            <span class="absolute top-4 right-4 px-2.5 py-1 bg-brand-blue/20 text-brand-cyan text-[10px] font-mono rounded border border-brand-blue/40">SETOR AUTOMOTIVO</span>
+                            <h4 class="text-lg font-bold text-white">Linha de Submontagem de Motores</h4>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between">
+                            <p class="text-gray-400 text-xs leading-relaxed mb-6">
+                                Implantação de bancada automatizada com CLP Altus Nexto Xpress, leitores de código de barras e sistema Poka-Yoke elétrico para zerar erros de montagem de parafusos.
+                            </p>
+                            <div class="pt-4 border-t border-slate-800 flex justify-between items-center text-xs font-mono">
+                                <span class="text-gray-400">Ganho de Produtividade:</span>
+                                <span class="text-brand-cyan font-bold">+35%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case 2 -->
+                    <div class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border flex flex-col">
+                        <div class="h-44 bg-gradient-to-tr from-slate-900 to-indigo-950 p-6 flex flex-col justify-end relative">
+                            <span class="absolute top-4 right-4 px-2.5 py-1 bg-amber-500/20 text-amber-400 text-[10px] font-mono rounded border border-amber-500/40">ALIMENTÍCIO & BEBIDAS</span>
+                            <h4 class="text-lg font-bold text-white">Adequação Completa NR-12 em Envasadora</h4>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between">
+                            <p class="text-gray-400 text-xs leading-relaxed mb-6">
+                                Retrofit de painel com relés de segurança configuráveis Altus, cortinas de luz de alta precisão e intertravamento de portas com bloqueio solenóide.
+                            </p>
+                            <div class="pt-4 border-t border-slate-800 flex justify-between items-center text-xs font-mono">
+                                <span class="text-gray-400">Conformidade:</span>
+                                <span class="text-amber-400 font-bold">100% Categoria 4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Case 3 -->
+                    <div class="bg-brand-card rounded-2xl overflow-hidden border border-brand-border flex flex-col">
+                        <div class="h-44 bg-gradient-to-tr from-slate-900 to-cyan-950 p-6 flex flex-col justify-end relative">
+                            <span class="absolute top-4 right-4 px-2.5 py-1 bg-emerald-500/20 text-emerald-400 text-[10px] font-mono rounded border border-emerald-500/40">INDÚSTRIA 4.0</span>
+                            <h4 class="text-lg font-bold text-white">Telemetria IIoT Multi-Plantas</h4>
+                        </div>
+                        <div class="p-6 flex-grow flex flex-col justify-between">
+                            <p class="text-gray-400 text-xs leading-relaxed mb-6">
+                                Centralização de dados de 12 injetoras plásticas utilizando gateways com protocolo OPC UA e dashboard web personalizado para a diretoria industrial.
+                            </p>
+                            <div class="pt-4 border-t border-slate-800 flex justify-between items-center text-xs font-mono">
+                                <span class="text-gray-400">Redução de Downtime:</span>
+                                <span class="text-emerald-400 font-bold">-22%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOBRE A EMPRESA & LIDERANÇA (CEO ANDREW BORTOLETO) -->
+        <section id="sobre" class="py-20 bg-slate-950/40 border-b border-brand-border">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-6">
+                        <div class="relative">
+                            <!-- Card do CEO -->
+                            <div class="bg-brand-card p-8 rounded-3xl border border-brand-border relative z-10 glow-cyan">
+                                <div class="flex items-center gap-4 mb-6">
+                                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-blue to-brand-cyan flex items-center justify-center text-brand-dark text-3xl font-black font-sans">
+                                        AB
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-extrabold text-white font-sans">Andrew Bortoleto</h3>
+                                        <p class="text-xs font-semibold text-brand-cyan uppercase">CEO & Chief Automation Engineer</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-300 text-sm leading-relaxed mb-6 font-normal">
+                                    "Na AUTTEC SYSTEM, enxergamos a automação industrial não apenas como a substituição do trabalho manual, mas como a criação de ecossistemas produtivos inteligentes, altamente seguros e hiperconectados. Nosso compromisso é entregar a máxima confiabilidade usando o melhor da engenharia nacional e parceiros líderes como a Altus."
+                                </p>
+                                <div class="flex items-center gap-4 text-xs font-semibold text-gray-400 pt-4 border-t border-slate-800">
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-graduation-cap text-brand-cyan"></i> Eng. de Automação</span>
+                                    <span class="flex items-center gap-1.5"><i class="fa-solid fa-certificate text-brand-cyan"></i> Certificado Altus</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-6">
+                        <h2 class="text-xs font-mono text-brand-cyan tracking-widest uppercase mb-2">Quem Somos</h2>
+                        <h3 class="text-3xl font-extrabold text-white font-tech mb-6">Engenharia de Automação de Alta Performance</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            A **AUTTEC SYSTEM** nasceu com o propósito de suprir as demandas crescentes das indústrias modernas por eficiência operacional, rastreabilidade e segurança do trabalho. 
+                        </p>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">
+                            Especializada em **desenvolvimento de projetos turn-key**, a empresa atua desde a concepção do esquema eletroeletrônico até a programação dos CLPs, integração de robôs e montagem física no chão de fábrica.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-4 bg-brand-card rounded-xl border border-slate-800">
+                                <h4 class="font-bold text-white text-sm font-tech mb-1"><i class="fa-solid fa-bullseye text-brand-cyan mr-2"></i> Missão</h4>
+                                <p class="text-xs text-gray-400">Entregar soluções de automação robusta que elevem o OEE dos clientes.</p>
+                            </div>
+                            <div class="p-4 bg-brand-card rounded-xl border border-slate-800">
+                                <h4 class="font-bold text-white text-sm font-tech mb-1"><i class="fa-solid fa-eye text-brand-cyan mr-2"></i> Visão</h4>
+                                <p class="text-xs text-gray-400">Ser referência nacional em integração de sistemas Indústria 4.0.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULÁRIO DE CONTATO -->
+        <section id="contato" class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <div class="lg:col-span-5">
+                        <span class="text-xs font-mono text-brand-cyan tracking-widest uppercase">Canais de Atendimento</span>
+                        <h3 class="text-3xl font-extrabold text-white font-tech mt-2 mb-6">Inicie Seu Projeto Conosco</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                            Entre em contato com nossa equipe de engenharia para agendar uma visita técnica ou solicitar cotação de painéis, CLPs Altus e células automatizadas.
+                        </p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-slate-900 border border-brand-border flex items-center justify-center text-brand-cyan text-xl">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs text-gray-400 uppercase font-mono">Endereço Principal</h4>
+                                    <p class="text-sm text-white font-semibold">Polo Industrial - São Paulo / SP</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-slate-900 border border-brand-border flex items-center justify-center text-brand-cyan text-xl">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs text-gray-400 uppercase font-mono">E-mail Comercial</h4>
+                                    <p class="text-sm text-white font-semibold">contato@auttecsystem.com.br</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-slate-900 border border-brand-border flex items-center justify-center text-brand-cyan text-xl">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs text-gray-400 uppercase font-mono">Telefone / WhatsApp</h4>
+                                    <p class="text-sm text-white font-semibold">+55 (11) 98765-4321</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="lg:col-span-7">
+                        <div class="bg-brand-card p-8 rounded-3xl border border-brand-border">
+                            <form id="contact-form" onsubmit="event.preventDefault(); enviarContato();" class="space-y-4">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-300 mb-1">Seu Nome</label>
+                                        <input type="text" required placeholder="Ex: Engenheiro Roberto" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-300 mb-1">Empresa</label>
+                                        <input type="text" required placeholder="Ex: Indústrias Metalúrgicas" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-300 mb-1">E-mail Corporativo</label>
+                                        <input type="email" required placeholder="roberto@empresa.com" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-300 mb-1">Telefone / WhatsApp</label>
+                                        <input type="tel" placeholder="(11) 99999-9999" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-300 mb-1">Assunto Principal</label>
+                                    <select class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none">
+                                        <option>Desenvolvimento de Projeto de Automação</option>
+                                        <option>Programação de CLP Altus</option>
+                                        <option>Adequação NR-12</option>
+                                        <option>Integração Indústria 4.0 / OPC UA</option>
+                                        <option>Outros Assuntos</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-300 mb-1">Detalhes do Projeto</label>
+                                    <textarea rows="4" required placeholder="Descreva brevemente a necessidade da sua linha de produção..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-white text-sm focus:border-brand-cyan focus:outline-none"></textarea>
+                                </div>
+
+                                <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-blue to-brand-cyan text-brand-dark font-extrabold text-sm uppercase tracking-wider hover:brightness-110 transition-all flex items-center justify-center gap-2">
+                                    <i class="fa-solid fa-paper-plane"></i> Enviar Mensagem para Engenharia
+                                </button>
+                            </form>
+
+                            <!-- Caixa de Feedback -->
+                            <div id="feedback-msg" class="hidden mt-4 p-4 rounded-xl bg-emerald-950 border border-emerald-500/50 text-emerald-300 text-xs text-center font-semibold">
+                                Mensagem enviada com sucesso! Nossa equipe técnica entrará em contato em breve.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-brand-border py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-gradient-to-tr from-brand-blue to-brand-cyan flex items-center justify-center text-brand-dark text-sm font-bold font-sans">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <span class="font-sans text-lg font-black text-white">AUTTEC SYSTEM</span>
+                </div>
+
+                <div class="text-xs text-gray-400 text-center md:text-left font-medium">
+                    &copy; 2026 AUTTEC SYSTEM. Todos os direitos reservados. CEO: <span class="text-gray-200 font-semibold">Andrew Bortoleto</span>. Integrador credenciado Altus.
+                </div>
+
+                <div class="flex space-x-4 text-gray-400">
+                    <a href="#" class="hover:text-brand-cyan text-lg"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="hover:text-brand-cyan text-lg"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="hover:text-brand-cyan text-lg"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Menu Mobile Toggle
+        const btnMenu = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btnMenu.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Lógica do Simulador Interativo
+        function calcularArquitetura() {
+            const porte = document.getElementById('porte').value;
+            const objetivo = document.getElementById('objetivo').value;
+            const resBox = document.getElementById('resultado-simulacao');
             
-            <div class="pt-2">
-              <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Especificações Técnicas</h3>
-              <div id="detail-badges" class="flex flex-wrap gap-2"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            let clpText = "";
+            let ihmText = "";
+            let ioText = "";
+            let segText = "";
 
-    <!-- ABA 2: SIMULADOR DE TOPOLOGIA -->
-    <section id="tab-topologia" class="hidden space-y-6">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <button onclick="selectTopology('bus')" id="btn-top-bus" class="flex-1 py-4 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-cyan-500 text-cyan-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md">
-          <span>🚌</span> Layout em Barramento
-        </button>
-        <button onclick="selectTopology('star')" id="btn-top-star" class="flex-1 py-4 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-300 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md">
-          <span>⭐</span> Layout em Estrela
-        </button>
-      </div>
+            if (porte === 'pequeno') {
+                clpText = "Altus Nexto Xpress (XP300 / XP325 com E/S integradas e suporte MQTT)";
+                ihmText = "IHM Touchscreen 7\" Grafica via Ethernet Modbus TCP";
+                ioText = "Expandível via Barramento CanOpen / Modbus RTU compacto";
+            } else if (porte === 'medio') {
+                clpText = "Altus Nexto Modular (CPU NX3005 / NX3010 Alta Velocidade)";
+                ihmText = "IHM 10.1\" High-Definition com WebServer nativo";
+                ioText = "Módulos de E/S Rápidas Série Nexto dedicados ao processo";
+            } else {
+                clpText = "Altus Nexto Redundante (CPU NX3030 com alta disponibilidade)";
+                ihmText = "Supervisório SCADA dedicado + IHMs locais redundantes";
+                ioText = "Remotas de E/S Distribuídas em Anel PROFINET / EtherNet/IP";
+            }
 
-      <!-- Diagrama e Explicação da Topologia -->
-      <div class="bg-slate-800/90 border border-slate-700 rounded-xl p-6 shadow-xl space-y-6">
-        <div class="flex items-center justify-between border-b border-slate-700 pb-4">
-          <h2 id="topo-title" class="text-xl font-bold text-cyan-400">Layout em Barramento (Bus)</h2>
-          <span id="topo-tag" class="text-xs px-3 py-1 rounded-full bg-cyan-950 text-cyan-300 border border-cyan-700 font-mono">Padrão RS-485 / Profibus DP</span>
-        </div>
+            if (objetivo === 'montagem') {
+                segText = "Chaves intertravadas + Validação por Visão Computacional / Poka-Yoke";
+            } else if (objetivo === 'iiot') {
+                segText = "Gateway Edge de Cibersegurança + Criptografia TLS para nuvem OPC UA";
+            } else if (objetivo === 'nr12') {
+                segText = "Relés de Segurança Categoria 4 + Cortinas de Luz de Segurança Dupla";
+            } else {
+                segText = "Intertravamento seguro Robô-CLP com Safety I/O via rede de segurança";
+            }
 
-        <!-- Diagrama Visual HTML/CSS -->
-        <div id="topo-diagram" class="bg-slate-900 border border-slate-800 rounded-lg p-6 min-h-[220px] flex items-center justify-center overflow-x-auto">
-          <!-- O diagrama é injetado via JS -->
-        </div>
+            document.getElementById('res-clp').innerText = clpText;
+            document.getElementById('res-ihm').innerText = ihmText;
+            document.getElementById('res-io').innerText = ioText;
+            document.getElementById('res-seguranca').innerText = segText;
 
-        <!-- Prós e Contras -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-          <div class="bg-emerald-950/30 border border-emerald-500/30 rounded-lg p-4">
-            <h3 class="text-emerald-400 font-semibold mb-2 flex items-center gap-2 text-sm">
-              <span>✅</span> Vantagens
-            </h3>
-            <ul id="topo-advantages" class="text-slate-300 text-xs md:text-sm space-y-1 list-disc list-inside"></ul>
-          </div>
-          <div class="bg-rose-950/30 border border-rose-500/30 rounded-lg p-4">
-            <h3 class="text-rose-400 font-semibold mb-2 flex items-center gap-2 text-sm">
-              <span>❌</span> Desvantagens
-            </h3>
-            <ul id="topo-disadvantages" class="text-slate-300 text-xs md:text-sm space-y-1 list-disc list-inside"></ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+            resBox.classList.remove('hidden');
+            resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
-  <!-- Footer -->
-  <footer class="bg-slate-950 border-t border-slate-800 p-4 text-center text-xs text-slate-500">
-    Guia Visual de Redes para Automação Industrial • Padrão Indústria 4.0
-  </footer>
-
-  <script>
-    // Dados dos Cabos
-    const cablesData = {
-      'par-trancado': {
-        title: 'Par Trançado',
-        image: 'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?auto=format&fit=crop&w=600&h=400&q=80',
-        text: 'Cabo de rede comum (Ethernet/Profinet). Usado para ligar o CLP ao computador do supervisor, além de conectar switches e IHMs.',
-        badges: ['Custo: Baixo', 'Flexibilidade: Alta', 'Distância: Máx. 100m']
-      },
-      'fibra': {
-        title: 'Fibra Óptica',
-        image: 'https://images.unsplash.com/photo-1601524909162-be87252be298?auto=format&fit=crop&w=600&h=400&q=80',
-        text: 'Cabo de filamentos de vidro. Usado para levar dados a longas distâncias na fábrica e interligar blocos industriais sem sofrer nenhuma interferência eletromagnética de grandes motores.',
-        badges: ['Imunidade a Ruídos: Excelente', 'Custo: Alto', 'Banda: Gigabit+']
-      },
-      'rs485': {
-        title: 'Cabo RS-485',
-        image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&h=400&q=80',
-        text: 'Cabo de dois fios trançados com blindagem malhada (A e B). Padrão físico indispensável na indústria para comunicação serial robusta entre CLPs, inversores de frequência e instrumentos de campo.',
-        badges: ['Protocolos: Modbus RTU / Profibus DP', 'Distância: até 1200m', 'Topologia: Barramento']
-      }
-    };
-
-    // Dados das Topologias
-    const topologyData = {
-      bus: {
-        title: 'Layout em Barramento (Bus)',
-        tag: 'Padrão RS-485 / Modbus RTU / Profibus',
-        advantages: [
-          'Economia de cabeamento e facilidade de instalação em linha.',
-          'Excelente para longas distâncias no chão de fábrica (até 1200m).',
-          'Arquitetura simples para expansão de novos nós.'
-        ],
-        disadvantages: [
-          'Se o cabo principal se romper, toda a rede a jusante cai.',
-          'Diagnóstico de falhas mais complexo sem gerenciamento avançado.',
-          'Exige resistores de terminação nas pontas.'
-        ],
-        diagramHtml: `
-          <div class="flex flex-col items-center w-full max-w-xl py-4">
-            <!-- Dispositivos em linha -->
-            <div class="flex justify-between w-full mb-2 px-4 gap-2">
-              <div class="bg-slate-800 border-2 border-emerald-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
-                <div class="text-emerald-400 font-bold">CLP Master</div>
-                <div class="text-[10px] text-slate-400">Node 01</div>
-              </div>
-              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
-                <div class="text-cyan-400 font-bold">Inversor</div>
-                <div class="text-[10px] text-slate-400">Node 02</div>
-              </div>
-              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
-                <div class="text-cyan-400 font-bold">IHM</div>
-                <div class="text-[10px] text-slate-400">Node 03</div>
-              </div>
-              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-3 text-center text-xs font-mono w-24 shadow">
-                <div class="text-cyan-400 font-bold">Módulo IO</div>
-                <div class="text-[10px] text-slate-400">Node 04</div>
-              </div>
-            </div>
-            <!-- Linhas verticais de conexão -->
-            <div class="flex justify-between w-full px-12 h-6">
-              <div class="w-0.5 h-full bg-cyan-400"></div>
-              <div class="w-0.5 h-full bg-cyan-400"></div>
-              <div class="w-0.5 h-full bg-cyan-400"></div>
-              <div class="w-0.5 h-full bg-cyan-400"></div>
-            </div>
-            <!-- Cabo Tronco Principal -->
-            <div class="w-full h-3 bg-cyan-500 rounded-full relative flex items-center justify-between px-2 shadow-inner">
-              <span class="w-2 h-2 rounded-full bg-purple-400" title="Terminação A"></span>
-              <span class="text-[10px] font-mono text-slate-900 font-bold uppercase tracking-wider">Cabo Tronco RS-485 (Linha Principal)</span>
-              <span class="w-2 h-2 rounded-full bg-purple-400" title="Terminação B"></span>
-            </div>
-          </div>
-        `
-      },
-      star: {
-        title: 'Layout em Estrela (Star)',
-        tag: 'Padrão Ethernet Industrial / Profinet',
-        advantages: [
-          'Isolamento de falhas: se um cabo romper, apenas uma máquina cai.',
-          'Alta velocidade de transmissão (100Mbps a 1Gbps+).',
-          'Fácil manutenção e monitoramento centralizado via Switch.'
-        ],
-        disadvantages: [
-          'Maior consumo de cabos direcionados ao ponto central.',
-          'Dependência do Switch Central (se ele falhar, a rede para).',
-          'Custo de infraestrutura ligeiramente superior.'
-        ],
-        diagramHtml: `
-          <div class="flex flex-col items-center w-full max-w-md py-2">
-            <!-- Dispositivo Topo -->
-            <div class="bg-slate-800 border-2 border-emerald-500 rounded p-2 text-center text-xs font-mono w-28 mb-4 shadow">
-              <div class="text-emerald-400 font-bold">CLP Central</div>
-            </div>
-            <!-- Conectores Superiores -->
-            <div class="w-0.5 h-6 bg-emerald-400"></div>
-            <!-- Switch Central -->
-            <div class="bg-purple-950 border-2 border-purple-500 rounded-lg p-3 text-center text-xs font-mono w-40 shadow-lg my-1">
-              <div class="text-purple-300 font-bold">Switch Industrial</div>
-              <div class="text-[9px] text-purple-400">Gerenciável (10/100)</div>
-            </div>
-            <!-- Linhas de Distribuição -->
-            <div class="flex justify-between w-full px-8 h-6">
-              <div class="w-0.5 h-full bg-cyan-400 rotate-12 origin-top"></div>
-              <div class="w-0.5 h-full bg-cyan-400"></div>
-              <div class="w-0.5 h-full bg-cyan-400 -rotate-12 origin-top"></div>
-            </div>
-            <!-- Dispositivos Periféricos -->
-            <div class="flex justify-between w-full gap-2">
-              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-2 text-center text-xs font-mono w-24 shadow">
-                <div class="text-cyan-400 font-bold">IHM</div>
-              </div>
-              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-2 text-center text-xs font-mono w-24 shadow">
-                <div class="text-cyan-400 font-bold">Inversor</div>
-              </div>
-              <div class="bg-slate-800 border-2 border-cyan-500 rounded p-2 text-center text-xs font-mono w-24 shadow">
-                <div class="text-cyan-400 font-bold">Robô</div>
-              </div>
-            </div>
-          </div>
-        `
-      }
-    };
-
-    // Alternar Abas
-    function switchTab(tab) {
-      const btnCabos = document.getElementById('btn-tab-cabos');
-      const btnTopologia = document.getElementById('btn-tab-topologia');
-      const tabCabos = document.getElementById('tab-cabos');
-      const tabTopologia = document.getElementById('tab-topologia');
-
-      if (tab === 'cabos') {
-        btnCabos.classList.add('tab-active');
-        btnTopologia.classList.remove('tab-active');
-        tabCabos.classList.remove('hidden');
-        tabTopologia.classList.add('hidden');
-      } else {
-        btnTopologia.classList.add('tab-active');
-        btnCabos.classList.remove('tab-active');
-        tabTopologia.classList.remove('hidden');
-        tabCabos.classList.add('hidden');
-        selectTopology('bus');
-      }
-    }
-
-    // Seleção de Cabo na Aba 1
-    function selectCable(cableKey) {
-      const data = cablesData[cableKey];
-      if (!data) return;
-
-      document.querySelectorAll('.cable-card').forEach(card => {
-        card.classList.remove('card-selected');
-      });
-      document.getElementById(`card-${cableKey}`).classList.add('card-selected');
-
-      document.getElementById('detail-title').innerText = data.title;
-      document.getElementById('detail-img').src = data.image;
-      document.getElementById('detail-text').innerText = data.text;
-
-      const badgesContainer = document.getElementById('detail-badges');
-      badgesContainer.innerHTML = '';
-      data.badges.forEach(badge => {
-        const span = document.createElement('span');
-        span.className = 'px-3 py-1 rounded-md bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-mono font-medium';
-        span.innerText = badge;
-        badgesContainer.appendChild(span);
-      });
-
-      document.getElementById('detail-panel').classList.remove('hidden');
-    }
-
-    // Fechar Painel de Detalhes
-    function closeDetailPanel() {
-      document.getElementById('detail-panel').classList.add('hidden');
-      document.querySelectorAll('.cable-card').forEach(card => {
-        card.classList.remove('card-selected');
-      });
-    }
-
-    // Seleção de Topologia na Aba 2
-    function selectTopology(type) {
-      const data = topologyData[type];
-      if (!data) return;
-
-      const btnBus = document.getElementById('btn-top-bus');
-      const btnStar = document.getElementById('btn-top-star');
-
-      if (type === 'bus') {
-        btnBus.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800 border-2 border-cyan-500 text-cyan-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
-        btnStar.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800/50 border-2 border-slate-700 text-slate-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
-      } else {
-        btnStar.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800 border-2 border-cyan-500 text-cyan-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
-        btnBus.className = 'flex-1 py-4 px-6 rounded-xl bg-slate-800/50 border-2 border-slate-700 text-slate-400 font-semibold text-lg transition-all flex items-center justify-center gap-3 shadow-md';
-      }
-
-      document.getElementById('topo-title').innerText = data.title;
-      document.getElementById('topo-tag').innerText = data.tag;
-      document.getElementById('topo-diagram').innerHTML = data.diagramHtml;
-
-      const advList = document.getElementById('topo-advantages');
-      advList.innerHTML = '';
-      data.advantages.forEach(item => {
-        const li = document.createElement('li');
-        li.innerText = item;
-        advList.appendChild(li);
-      });
-
-      const disList = document.getElementById('topo-disadvantages');
-      disList.innerHTML = '';
-      data.disadvantages.forEach(item => {
-        const li = document.createElement('li');
-        li.innerText = item;
-        disList.appendChild(li);
-      });
-    }
-  </script>
+        // Feedback do Formulário
+        function enviarContato() {
+            const feedback = document.getElementById('feedback-msg');
+            feedback.classList.remove('hidden');
+            document.getElementById('contact-form').reset();
+            setTimeout(() => {
+                feedback.classList.add('hidden');
+            }, 6000);
+        }
+    </script>
 </body>
 </html>
